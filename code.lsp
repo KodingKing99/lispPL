@@ -45,12 +45,19 @@
 		)
 	)
 )
-#(defun flatten (expr)
-#	(if (eq expr nil)
-#		nil
-#		(append (flatten (first expr)) (rest expr))
-#	)
-#)
+#input is two expressions
+#return True if the two expressions are the same, False otherwise.
+#To be the same they must have the same nested structure and each atom must be eq and in the same position
+#Do NOT use flatten to solve this problem
+(defun equal (expr0 expr1)
+	(if (and (atom expr0) (atom expr1))
+		(eq expr0 expr1)
+		(and (equal (first expr0) (first expr1))
+			 (equal (rest expr0) (rest expr1))
+		)
+	)
+)
+
 
 
 #### TESTS
@@ -65,6 +72,9 @@
 #(length (cons True (cons False (cons False (cons False nil )))))
 #(length (quote (1 8 6 4 4 3 2 1 )))
 #(flatten 1 )
-(flatten (quote (1 2 3)))
-(flatten (quote ((1 )(2 )(3 ))))
-(flatten (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
+#(flatten (quote (1 2 3)))
+#(flatten (quote ((1 )(2 )(3 ))))
+#(flatten (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
+#(equal 1 nil)
+#(equal (quote (1 ))(quote (2 3 4 5 )))
+(equal (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 )))))(quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
