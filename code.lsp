@@ -57,6 +57,18 @@
 		)
 	)
 )
+#input is an atom (item) and an expression
+#returns True if item is contained anywhere in expression
+(defun find (item expr)
+	(if (eq expr nil)
+		False
+		(if (atom expr)
+			(eq item expr)
+			(or (find item (first expr)) (find item (rest expr)))
+		)	
+	)
+	
+)
 
 
 
@@ -77,4 +89,8 @@
 #(flatten (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
 #(equal 1 nil)
 #(equal (quote (1 ))(quote (2 3 4 5 )))
-(equal (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 )))))(quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
+#(equal (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 )))))(quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
+(find 1 nil )
+(find True (cons False (cons False nil )))
+(find 111111 (quote (1 2 3 4 6 )))
+(find 555 (quote (6 555 67 545 )))
