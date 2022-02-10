@@ -228,5 +228,5 @@ def toString(code):
 fileName = "code.lsp"
 # print(readInProgram(fileName))
 # runProgram(fileName, True)
-runProgram(fileName, False)
+runProgram(fileName, True)
 #print(parseProgram("(+ 1 2) (+ 4 5)"))

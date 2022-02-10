@@ -67,9 +67,56 @@
 			(or (find item (first expr)) (find item (rest expr)))
 		)	
 	)
-	
 )
+#input is a list and an integer index
+#returns the item in the list at index where
+#index 0 is the first of the list
+(defun get (list index)
+	(if (eq list nil)
+		nil
+		(if (< index (length list))
+			(if (eq index 0)
+				(first list)
+				(get (rest list) (- index 1))
+			)
+		)
+	)
+)
+#input is a list and two integer indexes 
+#of locations within the list. 
+#equivalent in Python would be list[start:end]
+#(defun select (list start end)
+#	(if (eq list nil) 
+#		nil
+#		(if (eq start end)
+#			(get list start)
+#			(selectHelper list start end)
+#		)
+#	)
+#)
 
+#(defun selectHelper (list start end output)
+#	(if (eq list nil)
+#		output
+#		(if (eq start end)
+#				(append output (get list start))
+#				(if (eq start 0)
+#					(selectHelper (rest list) start (- end 1) (append output (first list)))
+#					(selectHelper (rest list) (- start 1) end output)
+#				)
+#		)
+#	)
+#)
+#(selectHelper (rest list) start (- end 1) (append (cons (first list) nil) output))
+# (1 2 3 4) 0 2 -> (1 2)
+(defun select (list start end)
+	(if (eq list nil) 
+		nil
+		(if (eq start (- end 1))
+			(get list start)
+		)
+	)
+)
 
 
 #### TESTS
@@ -90,7 +137,12 @@
 #(equal 1 nil)
 #(equal (quote (1 ))(quote (2 3 4 5 )))
 #(equal (quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 )))))(quote (1 (7 8 (3 )(((4 ))(5 6 ))(9 10 0 (11 ))))))
-(find 1 nil )
-(find True (cons False (cons False nil )))
-(find 111111 (quote (1 2 3 4 6 )))
-(find 555 (quote (6 555 67 545 )))
+#(find 1 nil )
+#(find True (cons False (cons False nil )))
+#(find 111111 (quote (1 2 3 4 6 )))
+#(find 555 (quote (6 555 67 545 )))
+#(get nil 1)
+#(get (cons 4 nil ) 0)
+#(get (quote (1 b c d e ))3)
+#(select (quote (1 2 3)) 0 2)
+(select (quote (1 2 3)) 0 3)
